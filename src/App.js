@@ -1,7 +1,13 @@
 import React from "react";
 
+import Main from "./components/Main/Main";
+
 function App() {
-  return <div>Simple Issue Tracker</div>;
+  return (
+    <div>
+      <Main />
+    </div>
+  );
 }
 
 export default App;
