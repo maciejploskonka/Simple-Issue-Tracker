@@ -14,6 +14,9 @@ const AddIssueForm = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    if (title.length === 0 || description.length === 0) {
+      return;
+    }
     const formData = {
       title,
       description,
@@ -43,7 +46,7 @@ const AddIssueForm = (props) => {
             id="description"
             onChange={descriptionChangeHandler}
             value={description}
-          ></textarea>
+          />
         </div>
       </div>
       <div className="">

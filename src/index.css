@@ -5,11 +5,16 @@
 }
 
 html {
-  font-family: "Noto Sans JP", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
   margin: 0;
-  background-color: rgb(40, 61, 123);
-  color: rgb(255, 255, 255);
+  background: rgb(17, 138, 178);
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }

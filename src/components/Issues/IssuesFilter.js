@@ -1,4 +1,13 @@
 import React from "react";
+import styled from "styled-components";
+
+const FilterList = styled.ul`
+`;
+
+const FilterItem = styled.li`
+`;
+
+const FILTER_STATES = ["open", "pending", "closed", "all"];
 
 const IssuesFilter = (props) => {
   const filterChangeHandler = (e) => {
@@ -6,17 +15,20 @@ const IssuesFilter = (props) => {
   };
 
   return (
-    <div className="expenses-filter">
-      <div className="expenses-filter__control">
-        <label>Filter by state</label>
-        <select value={props.selectedState} onChange={filterChangeHandler}>
-          <option value="all">all</option>
-          <option value="open">open</option>
-          <option value="pending">pending</option>
-          <option value="closed">closed</option>
-        </select>
-      </div>
-    </div>
+    <FilterList>
+      {FILTER_STATES.map((item) => (
+        <FilterItem key={item}>
+          <label htmlFor={item}>{item}</label>
+          <input
+            id={item}
+            type="radio"
+            name="state"
+            value={item}
+            onChange={filterChangeHandler}
+          />
+        </FilterItem>
+      ))}
+    </FilterList>
   );
 };
 

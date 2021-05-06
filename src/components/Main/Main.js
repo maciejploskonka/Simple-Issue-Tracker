@@ -1,29 +1,45 @@
 import React, { useState } from "react";
+import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
 
 import AddIssueForm from "../Issues/AddIssueForm";
 import IssuesFilter from "../Issues/IssuesFilter";
 import IssuesList from "../Issues/IssuesList";
 
+const MainWrapper = styled.main`
+  margin: 0 auto;
+  max-width: 600px;
+  background: rgb(255, 255, 255);
+`;
+
+const Title = styled.h1`
+  margin: 0;
+  padding: 1rem 0;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  background: rgb(17, 138, 178);
+`;
+
 const MOCKED_ISSUES = [
   {
-    id: "1",
+    id: "8706ad4b-21a8-451b-b691-ecdfe4e39372",
     title: "issue one title",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sit amet lacus id ligula ultricies commodo. Donec lectus tellus, aliquet vel diam a, congue porta ex. Aenean sit amet varius libero. Morbi vel lacus dolor. Nam mattis aliquam enim, tincidunt elementum justo imperdiet eu. Sed vitae maximus dolor. Cras laoreet scelerisque venenatis. Nam sagittis nec lacus nec fringilla. Quisque sit amet lectus eget enim placerat mattis id id ligula. Ut vel mattis nisi. Quisque sed egestas libero, in mollis velit. Vivamus eleifend neque dapibus convallis cursus. Praesent quam lorem, dapibus eu ultricies id, aliquam nec nisi.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sit amet lacus id ligula ultricies commodo. Donec lectus tellus, aliquet vel diam a, congue porta ex.",
     state: "open",
   },
   {
-    id: "2",
+    id: "16312146-2154-41d8-86bc-eb5dad3b314b",
     title: "issue two title",
     description:
-      "Integer hendrerit sed odio et vulputate. Aliquam at leo in risus aliquet ultrices sed eget eros. Curabitur sit amet lacus et libero suscipit imperdiet quis quis orci. Sed ut interdum magna, id feugiat elit. Maecenas porttitor felis nunc, vel efficitur nibh dapibus vitae. In ornare nibh in eros porta sagittis. Nullam ac magna mi. Maecenas semper porta purus, rutrum interdum sem. Nam euismod hendrerit fringilla. Suspendisse quis finibus nulla, vel condimentum erat.",
+      "Integer hendrerit sed odio et vulputate. Aliquam at leo in risus aliquet ultrices sed eget eros. Curabitur sit amet lacus et libero suscipit imperdiet quis quis orci.",
     state: "closed",
   },
   {
-    id: "3",
+    id: "b9116e6b-e1cf-418f-bc4b-376df86cb2eb",
     title: "issue three title",
     description:
-      "Quisque ullamcorper felis metus. Curabitur rhoncus a nibh at condimentum. Fusce non dictum quam. Vivamus convallis elit et enim ultricies placerat. Morbi tincidunt, augue sit amet laoreet consectetur, massa ligula gravida nisl, quis convallis quam diam et nulla. Pellentesque facilisis, justo ac fermentum mattis, erat nisl lacinia velit, ac scelerisque purus elit sed lacus. Etiam sollicitudin metus nec nisl maximus suscipit. Aenean rhoncus ante eros, vel sagittis purus pellentesque tincidunt.",
+      "Quisque ullamcorper felis metus. Curabitur rhoncus a nibh at condimentum. Fusce non dictum quam. Vivamus convallis elit et enim ultricies placerat.",
     state: "pending",
   },
 ];
@@ -36,7 +52,7 @@ const Main = () => {
     console.log(issue);
     const newIssue = {
       ...issue,
-      id: Math.random(), //can use uuid here
+      id: uuidv4(),
       state: "open",
     };
     setIssues((prevIssues) => {
@@ -46,6 +62,21 @@ const Main = () => {
 
   const filterChangeHandler = (selectedState) => {
     setFilteredState(selectedState);
+  };
+
+  const stateChangeHandler = (issue) => {
+    const newList = issues.map((item) => {
+      if (item.id === issue.id) {
+        const updatedItem = {
+          ...item,
+          state: issue.state,
+        };
+        return updatedItem;
+      }
+      return item;
+    });
+
+    setIssues(newList);
   };
 
   const filteredIssuesList = issues.filter((issue) => {
@@ -59,14 +90,18 @@ const Main = () => {
   });
 
   return (
-    <main>
+    <MainWrapper>
+      <Title>Issue Tracker</Title>
       <AddIssueForm onAddIssue={addIssueHandler} />
       <IssuesFilter
         selectedState={filteredState}
         onFilterChange={filterChangeHandler}
       />
-      <IssuesList issues={filteredIssuesList} />
-    </main>
+      <IssuesList
+        issues={filteredIssuesList}
+        onStateChange={stateChangeHandler}
+      />
+    </MainWrapper>
   );
 };
 
