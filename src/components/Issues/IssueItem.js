@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
+import IssueItemButtons from "./IssueItemButtons";
+
 const ListItem = styled.li`
   box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 40px 0px;
   padding: 20px 20px 10px;
-  border-radius: 3px;
-  border-left: 3px solid;
+  border-radius: 4px;
+  border-left: 4px solid;
   border-left-color: ${(props) =>
     (props.state === "open" && "rgb(6, 214, 160)") ||
     (props.state === "pending" && "rgb(255, 209, 102)") ||
@@ -17,8 +19,12 @@ const ListItem = styled.li`
   }
 `;
 
+const ListItemHeader = styled.div`
+  display: flex;
+`;
+
 const ListItemTitle = styled.h2`
-  margin: 0 0 20px;
+  margin: 0 auto 20px 0;
   font-size: 18px;
   font-weight: 400;
   text-transform: uppercase;
@@ -50,17 +56,10 @@ const IssueItem = (props) => {
 
   return (
     <ListItem state={state}>
-      <ListItemTitle>{title}</ListItemTitle>
-      {state === "open" && (
-        <button onClick={stateChangeHandler} data-state="pending">
-          pending
-        </button>
-      )}
-      {(state === "open" || state === "pending") && (
-        <button onClick={stateChangeHandler} data-state="closed">
-          closed
-        </button>
-      )}
+      <ListItemHeader>
+        <ListItemTitle>{title}</ListItemTitle>
+        <IssueItemButtons state={state} onStateChange={stateChangeHandler} />
+      </ListItemHeader>
       <ListItemDescription>{description}</ListItemDescription>
       <ListItemId>id: {id}</ListItemId>
     </ListItem>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
+import { PlusSquare } from "@styled-icons/bootstrap/PlusSquare";
 
 import AddIssueForm from "../Issues/AddIssueForm";
 import IssuesFilter from "../Issues/IssuesFilter";
@@ -12,12 +13,27 @@ const MainWrapper = styled.main`
   background: rgb(255, 255, 255);
 `;
 
+const MainHeader = styled.header`
+  position: relative;
+  color: rgb(255, 255, 255);
+  background: rgb(17, 138, 178);
+`;
+
 const Title = styled.h1`
   margin: 0;
   padding: 1rem 0;
   text-align: center;
-  color: rgb(255, 255, 255);
-  background: rgb(17, 138, 178);
+  font-size: 24px;
+`;
+
+const AddButton = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
+
+const AddIcon = styled(PlusSquare)`
+  height: 20px;
 `;
 
 const MOCKED_ISSUES = [
@@ -91,12 +107,17 @@ const Main = () => {
 
   return (
     <MainWrapper>
-      <Title>Issue Tracker</Title>
-      <AddIssueForm onAddIssue={addIssueHandler} />
-      <IssuesFilter
-        selectedState={filteredState}
-        onFilterChange={filterChangeHandler}
-      />
+      <MainHeader>
+        <Title>Issue Tracker</Title>
+        <AddButton>
+          <AddIcon />
+        </AddButton>
+        <IssuesFilter
+          selectedState={filteredState}
+          onFilterChange={filterChangeHandler}
+        />
+      </MainHeader>
+      {/* <AddIssueForm onAddIssue={addIssueHandler} /> */}
       <IssuesList
         issues={filteredIssuesList}
         onStateChange={stateChangeHandler}

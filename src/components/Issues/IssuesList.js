@@ -4,7 +4,7 @@ import styled from "styled-components";
 import IssueItem from "./IssueItem";
 
 const List = styled.ul`
-  padding: 35px 20px;
+  padding: 25px 20px 30px;
 `;
 
 const IssuesList = (props) => {

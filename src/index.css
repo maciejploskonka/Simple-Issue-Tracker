@@ -10,11 +10,18 @@ html {
 
 body {
   margin: 0;
-  background: rgb(17, 138, 178);
+  background: rgb(0, 0, 0);
 }
 
 ul, ol {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+button {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
 }
