@@ -30,17 +30,17 @@ const Title = styled.h1`
 `;
 
 const AddButton = styled(PlusCircle)`
-height: 30px;
-position: absolute;
-top: 15px;
-right: 15px;
-cursor: pointer;
-transition: .2s color;
+  height: 30px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  transition: 0.2s color;
 
-&:hover {
-  color: rgba(255, 255, 255, 0.75);
-}
-`
+  &:hover {
+    color: rgba(255, 255, 255, 0.75);
+  }
+`;
 
 const MOCKED_ISSUES = [
   {
@@ -72,7 +72,6 @@ const Main = () => {
   const { showModal, hideModal, RenderModal } = useModal();
 
   const addIssueHandler = (issue) => {
-    console.log(issue);
     const newIssue = {
       ...issue,
       id: uuidv4(),

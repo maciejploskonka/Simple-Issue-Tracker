@@ -1,6 +1,21 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+const handleBackground = (color) => {
+  switch (color) {
+    case "open":
+      return "rgb(6, 214, 160)";
+    case "pending":
+      return "rgb(255, 209, 102)";
+    case "closed":
+      return "rgb(239, 71, 111)";
+    case "all":
+      return "rgb(0, 0, 0)";
+    default:
+      return "rgb(0, 0, 0)"
+  }
+};
+
 const FilterList = styled.ul`
   display: flex;
 `;
@@ -55,11 +70,7 @@ const FilterItem = styled.li`
       width: 100%;
       display: block;
       height: 4px;
-      background: ${(props) =>
-        (props.item === "all" && "rgb(0, 0, 0)") ||
-        (props.item === "open" && "rgb(6, 214, 160)") ||
-        (props.item === "pending" && "rgb(255, 209, 102)") ||
-        (props.item === "closed" && "rgb(239, 71, 111)")};
+      background: ${(props) => handleBackground(props.item)};
       transform: scaleX(0);
       transform-origin: 0;
     }
@@ -76,7 +87,6 @@ const FilterItem = styled.li`
 const FILTER_STATES = ["all", "open", "pending", "closed"];
 
 const IssuesFilter = (props) => {
-  console.log(props.issues);
   const [activeItem, setActiveItem] = useState(props.selectedState);
 
   const issuesLength = {

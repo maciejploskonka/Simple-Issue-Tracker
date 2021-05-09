@@ -14,6 +14,7 @@ const PendingIcon = styled(PendingActions)`
     opacity: 1;
   }
 `;
+
 const ClosedIcon = styled(LockClock)`
   height: 24px;
   cursor: pointer;

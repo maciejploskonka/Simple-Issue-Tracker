@@ -3,19 +3,33 @@ import styled from "styled-components";
 
 import IssueItemButtons from "./IssueItemButtons";
 
+const handleBorderLeftColor = (color) => {
+  switch (color) {
+    case "open":
+      return "rgb(6, 214, 160)";
+    case "pending":
+      return "rgb(255, 209, 102)";
+    case "closed":
+      return "rgb(239, 71, 111)";
+    default:
+      return "rgb(0, 0, 0)"
+  }
+};
+
 const ListItem = styled.li`
   box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 40px 0px;
   padding: 20px 20px 10px;
   border-radius: 4px;
   border-left: 4px solid;
-  border-left-color: ${(props) =>
-    (props.state === "open" && "rgb(6, 214, 160)") ||
-    (props.state === "pending" && "rgb(255, 209, 102)") ||
-    (props.state === "closed" && "rgb(239, 71, 111)")};
-  transition: 0.2s border-left-color;
+  border-left-color: ${(props) => handleBorderLeftColor(props.state)};
+  transition: 0.2s border-left-color, 0.2s box-shadow;
 
   &:not(:last-of-type) {
     margin-bottom: 20px;
+  }
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px 0px;
   }
 `;
 

@@ -11,6 +11,7 @@ const ModalWrapper = styled.div`
   right: 0;
   z-index: 1;
 `;
+
 const ModalOverlay = styled.div`
   position: absolute;
   width: 100%;
