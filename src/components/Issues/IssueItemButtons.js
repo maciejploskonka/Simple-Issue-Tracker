@@ -1,52 +1,54 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { PendingActions } from "@styled-icons/material-outlined/PendingActions";
 import { LockClock } from "@styled-icons/material-outlined/LockClock";
 
-const Wrapper = styled.div`
-  color: rgb(31, 31, 31);
-`;
-
 const PendingIcon = styled(PendingActions)`
   height: 24px;
   cursor: pointer;
-  color: rgba(255, 209, 102, 0.75);
-  transition: 0.2s color;
+  color: rgb(255, 209, 102);
+  opacity: 0.75;
+  transition: 0.2s opacity;
 
   &:hover {
-    color: rgba(255, 209, 102, 1);
+    opacity: 1;
   }
 `;
 const ClosedIcon = styled(LockClock)`
   height: 24px;
-  margin-left: 4px;
   cursor: pointer;
-  color: rgba(239, 71, 111, 0.75);
-  transition: 0.2s color;
+  margin-left: 4px;
+  color: rgb(239, 71, 111);
+  opacity: 0.75;
+  transition: 0.2s opacity;
 
   &:hover {
-    color: rgba(239, 71, 111, 1);
+    opacity: 1;
   }
 `;
 
 const IssueItemButtons = (props) => {
+  const stateChangeHandler = (e) => {
+    props.onStateChange(e);
+  };
+
   return (
-    <Wrapper>
+    <>
       {props.state === "open" && (
         <PendingIcon
-          onClick={props.onStateChange}
+          onClick={stateChangeHandler}
           data-state="pending"
           title="set as pending"
         />
       )}
       {(props.state === "open" || props.state === "pending") && (
         <ClosedIcon
-          onClick={props.onStateChange}
+          onClick={stateChangeHandler}
           data-state="closed"
           title="set as closed"
         />
       )}
-    </Wrapper>
+    </>
   );
 };
 

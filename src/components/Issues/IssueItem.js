@@ -31,7 +31,7 @@ const ListItemTitle = styled.h2`
   color: rgb(31, 31, 31);
 `;
 
-const ListItemDescription = styled.span`
+const ListItemDescription = styled.div`
   font-size: 14px;
   color: rgb(71, 71, 71);
 `;
@@ -49,7 +49,7 @@ const IssueItem = (props) => {
   const stateChangeHandler = (e) => {
     const issue = {
       ...props.issue,
-      state: e.target.dataset.state,
+      state: e.target.closest("svg").dataset.state,
     };
     props.onStateChange(issue);
   };

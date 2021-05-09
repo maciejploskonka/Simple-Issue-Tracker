@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
-import { PlusSquare } from "@styled-icons/bootstrap/PlusSquare";
+import { PlusCircle } from "@styled-icons/boxicons-regular/PlusCircle";
 
 import AddIssueForm from "../Issues/AddIssueForm";
 import IssuesFilter from "../Issues/IssuesFilter";
 import IssuesList from "../Issues/IssuesList";
 
+import { useModal } from "../Modal/useModal";
+
 const MainWrapper = styled.main`
   margin: 0 auto;
   max-width: 600px;
+  min-height: 600px;
   background: rgb(255, 255, 255);
 `;
 
@@ -21,20 +24,23 @@ const MainHeader = styled.header`
 
 const Title = styled.h1`
   margin: 0;
-  padding: 1rem 0;
+  padding: 16px 0;
   text-align: center;
   font-size: 24px;
 `;
 
-const AddButton = styled.button`
-  position: absolute;
-  top: 0;
-  right: 0;
-`;
+const AddButton = styled(PlusCircle)`
+height: 30px;
+position: absolute;
+top: 15px;
+right: 15px;
+cursor: pointer;
+transition: .2s color;
 
-const AddIcon = styled(PlusSquare)`
-  height: 20px;
-`;
+&:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+`
 
 const MOCKED_ISSUES = [
   {
@@ -63,6 +69,7 @@ const MOCKED_ISSUES = [
 const Main = () => {
   const [issues, setIssues] = useState(MOCKED_ISSUES);
   const [filteredState, setFilteredState] = useState("all");
+  const { showModal, hideModal, RenderModal } = useModal();
 
   const addIssueHandler = (issue) => {
     console.log(issue);
@@ -74,6 +81,7 @@ const Main = () => {
     setIssues((prevIssues) => {
       return [newIssue, ...prevIssues];
     });
+    hideModal();
   };
 
   const filterChangeHandler = (selectedState) => {
@@ -109,15 +117,16 @@ const Main = () => {
     <MainWrapper>
       <MainHeader>
         <Title>Issue Tracker</Title>
-        <AddButton>
-          <AddIcon />
-        </AddButton>
+        <AddButton onClick={showModal} />
+        <RenderModal>
+          <AddIssueForm onAddIssue={addIssueHandler} />
+        </RenderModal>
         <IssuesFilter
           selectedState={filteredState}
           onFilterChange={filterChangeHandler}
+          issues={issues}
         />
       </MainHeader>
-      {/* <AddIssueForm onAddIssue={addIssueHandler} /> */}
       <IssuesList
         issues={filteredIssuesList}
         onStateChange={stateChangeHandler}
